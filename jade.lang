@@ -35,7 +35,8 @@
     <style id="element-name" _name="Element name" map-to="def:identifier"/>
     <style id="attribute-name" _name="Attribute name" map-to="def:type"/>
     <style id="attribute-value" _name="Attribute value" map-to="def:string"/>
-    <style id="tags" _name="Tags"  map-to="def:keyword"/>
+    <style id="tags" _name="Tags"  map-to="def:type"/>
+    <style id="keywords" _name="Keywords"  map-to="def:keyword"/>
     <style id="entity" _name="Entity" map-to="def:preprocessor"/>
     <style id="error" _name="Error" map-to="def:error"/>
     </styles>
@@ -95,7 +96,14 @@
         <context sub-pattern="1" style-ref="tags"/>
       </include>
     </context>
-    
+
+	<context id="keywords"  >
+      <match>^\s*\b((else if)|(doctype|block|each|for|extends|include|if|else|unless|while|until|mixin))\s*\b</match>
+      <include>
+        <context sub-pattern="1" style-ref="keywords"/>
+      </include>
+    </context>
+
     <context id="attribute-id" style-ref="attribute-name">
       <match>#[a-zA-Z0-9_-]+</match>
     </context>
@@ -136,6 +144,7 @@
         <context ref="attribute-id"/>
         <context ref="attribute-class"/>
         <context ref="tags"/>
+        <context ref="keywords"/>
         <context ref="line-comment"/>
         <context ref="jade-executable"/>
         <context ref="interpolated" />
